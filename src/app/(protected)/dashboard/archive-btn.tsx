@@ -15,7 +15,7 @@ const ArchiveBtn = () => {
   return (
     <Button
       disabled={archiveProject.isPending}
-      className="size-sm"
+      className="size-sm cursor-pointer"
       variant={"destructive"}
       onClick={() => {
         const confirm = window.confirm(

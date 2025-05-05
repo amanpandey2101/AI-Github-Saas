@@ -93,7 +93,7 @@ export function AppSidebar(){
                                         )}>
                                             {item.name[0]}
                                         </div>
-                                        <span>{item.name} </span>
+                                        <span className="cursor-pointer">{item.name} </span>
                                     </div>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
