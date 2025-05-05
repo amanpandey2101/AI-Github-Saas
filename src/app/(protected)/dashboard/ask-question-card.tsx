@@ -122,7 +122,7 @@ const AskQuestionCard = () => {
             />
             <div className="h-4"></div>
             <Button type="submit" disabled={loading}>
-              ASK GitTalk
+              Ask GitTalk
             </Button>
           </form>
         </CardContent>
