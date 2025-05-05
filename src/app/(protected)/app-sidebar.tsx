@@ -43,7 +43,7 @@ export function AppSidebar(){
                     <Image src="/logo.png" alt="logo" width={50} height={50}/>
                     {open && (
 
-                    <h1 className="text-xl font-bold text-primary/80">Gimbofit</h1>
+                    <h1 className="text-xl font-bold text-primary/80">GitTalk</h1>
                     )}
                 </div>
 
