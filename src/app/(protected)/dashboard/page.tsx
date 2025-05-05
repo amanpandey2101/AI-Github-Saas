@@ -1,20 +1,19 @@
-
+"use client"
 import React from "react";
 import useProject from "@/hooks/use-project";
 import { ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
-// import CommitLog from "./commit-log";
-// import AskQuestionCard from "./ask-question-card";
-// import ArchiveBtn from "./archive-btn";
-// import TeamMembers from "./team-members";
 import dynamic from "next/dynamic";
-import CommitLog from "./commit-log";
-import AskQuestionCard from "./ask-question-card";
-import ArchiveBtn from "./archive-btn";
-import InviteBtn from "./invite-btn";
-import TeamMembers from "./team-members";
-import MeetingCard from "./meeting-card";
-// const InviteBtn = dynamic(() => import("./invite-btn"), { ssr: false });
+
+const CommitLog = dynamic(() => import("./commit-log"), { ssr: false });
+
+const AskQuestionCard = dynamic(() => import("./ask-question-card"), { ssr: false });
+
+const ArchiveBtn = dynamic(() => import("./archive-btn"), { ssr: false });
+const TeamMembers = dynamic(() => import("./team-members"), { ssr: false });
+const MeetingCard = dynamic(() => import("./meeting-card"), { ssr: false });
+
+const InviteBtn = dynamic(() => import("./invite-btn"), { ssr: false });
 
 const Dashboard = () => {
   const { project } = useProject();
