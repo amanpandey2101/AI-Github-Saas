@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar"
+import useProject from "@/hooks/use-project"
 import { cn } from "@/lib/utils"
 import { Bot, CreditCard, LayoutDashboard, Plus, Presentation } from "lucide-react"
 import Image from "next/image"
@@ -29,27 +30,12 @@ const items =[
         url:"/billing"
     },
 ]
-const projects = [
-    {
-        name:"Project 1",
-        icon: LayoutDashboard,
-        url:"/project-1"
-    },
-    {
-        name:"Project 2",
-        icon: LayoutDashboard,
-        url:"/project-2"
-    },
-    {
-        name:"Project 3",
-        icon: LayoutDashboard,
-        url:"/project-3"
-    },
-]
+
     
 export function AppSidebar(){
     const pathname = usePathname()
     const {open} = useSidebar()
+    const {projects , projectId, setProjectId, project} = useProject();
     return(
         <Sidebar collapsible="icon" variant="floating">
             <SidebarHeader>
@@ -95,14 +81,14 @@ export function AppSidebar(){
                     <SidebarGroupContent>
                         <SidebarMenu>
 
-                        {projects.map(item=>{
+                        {projects?.map(item=>{
                             return(
                                 <SidebarMenuItem key={item.name}>
                                     <SidebarMenuButton asChild>
-                                    <div>
+                                    <div onClick={()=>setProjectId(item.id)}>
                                         <div className={cn('rounded-sm border size-6 flex items-center justify-center text-sm bg-white text-primary',
                                             {
-                                                "bg-primary text-white": true
+                                                "bg-primary text-white": item.id===projectId
                                             }
                                         )}>
                                             {item.name[0]}

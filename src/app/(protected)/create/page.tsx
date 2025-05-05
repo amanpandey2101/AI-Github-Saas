@@ -1,40 +1,64 @@
- 'use client '
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
- import React from 'react'
-import { useForm } from 'react-hook-form'
- 
+"use client";
 
- type FormInput = {
-    repoUrl: string,
-    projectName: string,
-    githubToken?: string
- }
- const CreatePage = () => {
-    const {register, handleSubmit, reset} = useForm<FormInput>();
-    function onSubmit(data: FormInput){
-        window.alert(data)
-        return true;
-    }
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import useRefetch from "@/hooks/use-refetch";
+import { api } from "@/trpc/react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
-   return (
-     <div className='flex items-center gap-12 h-full justify-center'>
-        <img src='' className='h-56 w-auto'/>
+type FormInputProps = {
+  projectName: string;
+  repoURL: string;
+  githubToken?: string;
+};
+
+const CreateProject = () => {
+  const { register, handleSubmit, reset } = useForm<FormInputProps>();
+  const createProject = api.project.createProject.useMutation();
+  const refetch = useRefetch();
+
+  function onSubmit(data: FormInputProps) {
+    createProject.mutate(
+      {
+        name: data.projectName,
+        repoUrl: data.repoURL,
+        githubToken: data.githubToken,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Project created successfully");
+          reset();
+          refetch();
+        },
+      },
+    );
+    return true;
+  }
+
+  return (
+    <div className="flex h-full items-center justify-center gap-12">
+      <img src="/createPage.svg" alt="Logo" className="h-56 w-auto" />
+      <div>
         <div>
-            <div>
-                <h1 className='font-semibold text-2xl '>Link Your Github Repository</h1>
-                <p className='text-sm text-muted-foreground'>Enter the URL to your Github repository to get started</p>
-            </div>
-            <div className="h-4"></div>
-            <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <h1 className="text-2xl font-semibold">
+            Link your GitHub Repository
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Enter the URL of your GitHub repository to get started.
+          </p>
+        </div>
+        <div className="h-4"></div>
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               {...register("projectName", { required: true })}
               placeholder="Project Name"
             />
             <div className="h-2"></div>
             <Input
-              {...register("repoUrl", { required: true })}
+              {...register("repoURL", { required: true })}
               placeholder="GitHub URL"
             />
             <div className="h-2"></div>
@@ -47,11 +71,10 @@ import { useForm } from 'react-hook-form'
               Check Credits
             </Button>
           </form>
-            </div>
         </div>
+      </div>
+    </div>
+  );
+};
 
-     </div>
-   )
- }
- 
- export default CreatePage
+export default CreateProject;
